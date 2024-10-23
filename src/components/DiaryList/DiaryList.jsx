@@ -1,31 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DiaryCard from './../DiaryCard/DiaryCard'; // Import the DiaryCard component
 import './DiaryList.scss';
+import diariesData from '../../data/diaryData.json';
+import { useNavigate } from 'react-router';
 
 const DiaryList = () => {
-  const [diaries, setDiaries] = useState([
-    {
-      id: 1,
-      title: 'My First Trip',
-      description: 'A trip to the mountains.',
-      coverImage: 'https://via.placeholder.com/50',
-    },
-    {
-      id: 2,
-      title: 'Beach Vacation',
-      description: 'A relaxing time at the beach.',
-      coverImage: 'https://via.placeholder.com/50',
-    }
-  ]);
+    const navigate = useNavigate();
+    const [diaries, setDiaries] = useState([]);
+
+    useEffect(() => {
+      // Load diaries data from the static JSON file
+      setDiaries(diariesData);
+    }, []);
 
   const handleEdit = (id) => {
     // Logic for editing a diary (e.g., show a modal or navigate to edit page)
     console.log('Edit diary with id:', id);
   };
 
+  const handleUpdateDiary = (updatedDiary) => {
+    setDiaries(diaries.map(diary => diary.id === updatedDiary.id ? updatedDiary : diary));
+  };
+
   const handleDelete = (id) => {
     setDiaries(diaries.filter(diary => diary.id !== id));
   };
+
+  const handleCreate = () => {
+    navigate('/create-diary')
+  }
 
   return (
     <div className="diary-list">
@@ -35,12 +38,12 @@ const DiaryList = () => {
           <DiaryCard 
             key={diary.id} 
             diary={diary} 
-            onEdit={handleEdit} 
+            onEdit={handleUpdateDiary} 
             onDelete={handleDelete} 
           />
         ))}
       </div>
-      <button className="create-diary-button">Create New Diary</button>
+      <button className="create-diary-button" onClick={handleCreate}>Create New Diary</button>
     </div>
   );
 };

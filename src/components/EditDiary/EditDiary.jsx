@@ -1,38 +1,49 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
-import Button from '../../components/Button/Button';
-import './DiaryCreation.scss';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom'; 
+import diariesData from '../../data/diaryData.json'; // Import the static JSON file
+import './EditDiary.scss';
 
-const DiaryCreation = ({ onCreate }) => {
+const EditDiary = ({ onUpdate }) => {
+  const { diaryId } = useParams();
   const navigate = useNavigate();
+  const [diary, setDiary] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
 
+  useEffect(() => {
+    // Fetch diary details based on diaryId
+    const fetchedDiary = diariesData.find(d => d.id === parseInt(diaryId));
+    if (fetchedDiary) {
+      setDiary(fetchedDiary);
+      setTitle(fetchedDiary.title);
+      setDescription(fetchedDiary.description);
+      setImage(fetchedDiary.coverImage);
+    } else {
+      navigate('/diaries'); // Redirect if diary not found
+    }
+  }, [diaryId, navigate]);
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setImage(URL.createObjectURL(file)); // Set image preview
+      setImage(URL.createObjectURL(file));
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Create a new diary object
-    const newDiary = {
-      id: Date.now(), // Use current timestamp as unique id
-      title,
-      description,
-      coverImage: image,
-    };
-    // onCreate(newDiary); // Send the new diary to the parent component
-    navigate('/diaries'); // Redirect after creating
+    // Update the diary details
+    // onUpdate({ ...diary, title, description, coverImage: image });
+    navigate('/diaries'); // Redirect after updating
   };
 
+  if (!diary) return <div>Loading...</div>;
+
   return (
-    <div className="create-diary">
-      <h2>Create New Diary</h2>
-      <form >
+    <div className="edit-diary">
+      <h2>Edit Diary</h2>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title">Title:</label>
           <input 
@@ -62,10 +73,10 @@ const DiaryCreation = ({ onCreate }) => {
           />
           {image && <img src={image} alt="Preview" className="image-preview" />}
         </div>
-      </form><br></br><br></br>
-      <Button type="submit" text={"Create Diary"} onClickHandler={handleSubmit}/>
+        <button type="submit">Update Diary</button>
+      </form>
     </div>
   );
 };
 
-export default DiaryCreation;
+export default EditDiary;

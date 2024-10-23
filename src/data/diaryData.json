@@ -1,0 +1,51 @@
+[
+    {
+      "id": 1,
+      "title": "My Paris Trip",
+      "description": "Exploring the city of love.",
+      "coverImage": "https://example.com/images/paris-trip.jpg",
+      "places": [
+        {
+          "id": 1,
+          "name": "Eiffel Tower",
+          "description": "An iconic symbol of Paris.",
+          "image": "https://example.com/images/eiffel-tower.jpg"
+        },
+        {
+          "id": 2,
+          "name": "Louvre Museum",
+          "description": "The world's largest art museum.",
+          "image": "https://example.com/images/louvre.jpg"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Great Wall Adventure",
+      "description": "Hiking along the Great Wall of China.",
+      "coverImage": "https://example.com/images/great-wall-adventure.jpg",
+      "places": [
+        {
+          "id": 3,
+          "name": "Great Wall of China",
+          "description": "A series of fortifications made of various materials.",
+          "image": "https://example.com/images/great-wall.jpg"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Peru Expedition",
+      "description": "Discovering the wonders of Machu Picchu.",
+      "coverImage": "https://example.com/images/peru-expedition.jpg",
+      "places": [
+        {
+          "id": 4,
+          "name": "Machu Picchu",
+          "description": "An Incan citadel set high in the Andes Mountains.",
+          "image": "https://example.com/images/machu-picchu.jpg"
+        }
+      ]
+    }
+  ]
+  

@@ -17,6 +17,9 @@
       gap: 1rem;
   
       .diary-card {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
         flex: 1 1 calc(33.333% - 1rem); // Three cards on larger screens
         border: 1px solid $secondary-color;
         border-radius: 8px;
