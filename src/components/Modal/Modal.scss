@@ -1,0 +1,119 @@
+@import './src/partials/variables';
+@import './src/partials/mixins';
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* Use full viewport height */
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: $text-color;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%; /* Default width for smaller screens */
+  max-width: 500px; /* Max width for larger screens */
+  position: relative;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out; /* Smooth transition for opening/closing */
+  
+  /* Make the modal scrollable if content exceeds */
+  max-height: 80vh; /* Limit height to 80% of the viewport height */
+  overflow-y: auto; /* Enable vertical scrolling */
+
+  h2 {
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: $font-size-large; /* Responsive font size */
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: $font-size-small; /* Responsive font size */
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 0.75rem; /* Increased padding for better touch targets */
+    margin-bottom: 1rem;
+    border: 1px solid $secondary-color;
+    border-radius: 4px;
+    font-size: $font-size-medium; /* Responsive font size */
+  }
+
+  button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: $primary-color;
+    color: $text-color;
+    border: none;
+    border-radius: 4px;
+    font-size: $font-size-medium;
+    cursor: pointer;
+    margin-top: 1rem;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+
+  .close-button {
+    background: none;
+    border: none;
+    color: $secondary-color;
+    font-size: $font-size-large;
+    position: absolute; /* Use absolute positioning */
+    top: 1rem; /* Position from the top */
+    right: 1rem; /* Position from the right */
+    cursor: pointer;
+    transition: color 0.3s; /* Smooth color transition on hover */
+
+    &:hover {
+      color: darken($secondary-color, 10%);
+    }
+  }
+
+  @include respond-to(mobile) {
+    padding: 1rem; /* Adjust padding for smaller screens */
+    
+    h2 {
+      font-size: $font-size-medium; /* Adjust heading size */
+    }
+
+    label {
+      font-size: $font-size-small; /* Adjust label size */
+    }
+
+    input,
+    select {
+      font-size: $font-size-small; /* Adjust input/select size */
+    }
+
+    button {
+      font-size: $font-size-small; /* Adjust button size */
+    }
+  }
+
+  @include respond-to(tablet) {
+    width: 80%; /* Slightly larger width for tablets */
+    max-width: 600px; /* Allow for a larger max width */
+  }
+
+  @include respond-to(desktop) {
+    width: 50%; /* Wider on larger screens */
+    max-width: 800px; /* Max width for larger screens */
+  }
+}

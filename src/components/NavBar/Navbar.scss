@@ -1,0 +1,92 @@
+@import './src/partials/variables';
+@import './src/partials/mixins';
+
+
+
+.navbar {
+  background-color: $primary-color;
+  padding: 1rem 2rem;
+  @include flex-center;
+  justify-content: space-between;
+  position: relative;
+
+  .navbar-logo {
+    color: $text-color;
+    font-size: $font-size-large;
+  }
+
+  .navbar-links {
+    list-style: none;
+    display: flex;
+
+    li {
+      margin-right: 1rem;
+
+      a {
+        color: $text-color;
+        font-size: $font-size-medium;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: lighten($text-color, 10%);
+        }
+      }
+    }
+
+    // Hidden by default on mobile
+    @include respond-to(mobile) {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: $primary-color;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    // When the menu is open
+    &.open {
+      display: flex;
+    }
+  }
+
+  .hamburger {
+    display: none; // Hide the hamburger icon on larger screens
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+
+    .bar {
+      width: 100%;
+      height: 3px;
+      background-color: $text-color;
+      transition: all 0.3s ease;
+    }
+
+    @include respond-to(mobile) {
+      display: flex; // Show hamburger icon on mobile devices
+    }
+    
+  }
+
+  .hamburger.open .bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  .hamburger.open .bar:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .hamburger.open .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+
+  @include respond-to(mobile) {
+    flex-direction: row;
+  }
+}

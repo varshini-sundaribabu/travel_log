@@ -1,0 +1,31 @@
+@import './src/partials/variables';
+@import './src/partials/mixins';
+
+.hero-section {
+  background-color: $secondary-color;
+  color: $text-color;
+  padding: 4rem 2rem;
+  text-align: center;
+
+  h1 {
+    font-size: $font-size-large;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: $font-size-medium;
+    margin-bottom: 2rem;
+  }
+
+  .hero-buttons {
+    @include flex-center;
+
+    button {
+      margin: 0 0.5rem;
+    }
+  }
+
+  @include respond-to(mobile) {
+    padding: 2rem 1rem;
+  }
+}

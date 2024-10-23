@@ -1,0 +1,9 @@
+@import './src/partials/variables';
+@import './src/partials/mixins';
+@import './src/partials/globals';
+
+// Component specific styles
+@import './src/components/Navbar/NavBar';
+@import './src/components/HeroSection/HeroSection';
+@import './src/components/DetailsSection/DetailsSection';
+@import './src/components/Button/Button';
