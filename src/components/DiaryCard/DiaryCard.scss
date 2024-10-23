@@ -1,0 +1,50 @@
+@import './src/partials/variables';
+@import './src/partials/mixins';
+.diary-card {
+    border: 1px solid $secondary-color;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: lighten($secondary-color, 10%);
+    transition: background-color 0.3s;
+    color: $text-color;
+  
+    &:hover {
+      background-color: lighten($secondary-color, 15%);
+    }
+  
+    .cover-image {
+      width: 80%; // Reduced width for smaller images
+      height: auto; // Maintain aspect ratio
+      border-radius: 8px;
+      margin: 0 auto; // Center the image
+      display: block; // Center block element
+    }
+  
+    h3 {
+      font-size: 1.2rem; // Smaller font size for titles
+    }
+  
+    p {
+      font-size: 0.9rem; // Smaller font size for descriptions
+    }
+  
+    .card-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+  
+      button {
+        background-color: $primary-color;
+        color: #fff;
+        border: none;
+        padding: 0.5rem;
+        cursor: pointer;
+  
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
+      }
+    }
+  }
+  
+  

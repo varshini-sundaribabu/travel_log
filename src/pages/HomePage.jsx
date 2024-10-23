@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar/NavBar';
 import HeroSection from '../components/HeroSection/HeroSection';
 import DetailsSection from '../components/DetailsSection/DetailsSection';
 import SignInModal from '../components/SignInModal';
@@ -11,7 +10,6 @@ const HomePage = () => {
 
   return (
     <>
-      <Navbar />
       <HeroSection
         openSignIn={() => setSignInOpen(true)}
         openSignUp={() => setSignUpOpen(true)}
