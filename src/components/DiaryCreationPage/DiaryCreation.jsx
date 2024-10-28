@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../../components/Button/Button';
+import Button from '../Button/Button';
 import { createDiary } from '../../services/api';
 import './DiaryCreation.scss';
 
