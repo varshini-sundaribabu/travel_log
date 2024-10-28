@@ -193,7 +193,7 @@ Make sure you have the following installed:
 ### Project Structure
 
 ```
-Travel Log/
+travel_log/
 ├── public/                  # Public assets
 ├── src/                     # Source code
 │   ├── components/          # Reusable components
@@ -207,7 +207,8 @@ Travel Log/
 └── README.md                # Project documentation
 ```
 
-express-app/
+```
+travel_log_backend/
 │
 ├── src/                     # Source files
 │   ├── controllers/         # Controllers for handling requests
@@ -223,6 +224,7 @@ express-app/
 ├── package.json             # Project metadata and dependencies
 ├── package-lock.json        # Lock file for dependencies
 └── README.md                # Project documentation
+```
 
 
 ### Usage
