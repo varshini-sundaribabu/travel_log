@@ -107,3 +107,108 @@ Test for user data storage.
 - Search and Filter features to find trips by location, date, or tags.
 
 
+# Travelogue
+
+Travelogue is a web application that allows users to create and manage travel journals. Users can document their travels by creating diaries and adding places with descriptions and images.
+
+## Table of Contents
+
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running the Application](#running-the-application)
+- [Project Structure](#project-structure)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Features
+
+- Create and manage travel diaries
+- Add places to diaries with descriptions and images
+- Responsive design for mobile and desktop
+- User authentication (using localStorage)
+
+## Technologies Used
+
+- React
+- React Router
+- SCSS for styling
+- Axios for API requests
+- Node.js and Express for backend (if applicable)
+- MySQL for the database (if applicable)
+
+## Getting Started
+
+To set up the Travelogue project on your local machine, follow these steps:
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+- [Node.js](https://nodejs.org/) (v14 or higher)
+- [npm](https://www.npmjs.com/) (Node package manager, comes with Node.js)
+
+### Installation
+
+1. **Clone the repository**:
+
+   ```bash
+   git clone https://github.com/yourusername/travelogue.git
+   cd travelogue
+   ```
+
+2. **Install dependencies**:
+
+   Run the following command in the project directory:
+
+   ```bash
+   npm install
+   ```
+
+### Running the Application
+
+1. **Start the development server**:
+
+   In the project directory, run:
+
+   ```bash
+   npm start
+   ```
+
+2. **Open your browser**:
+
+   Navigate to `http://localhost:3000` to see the application in action.
+
+### Project Structure
+
+```
+travelogue/
+├── public/                  # Public assets
+├── src/                     # Source code
+│   ├── components/          # Reusable components
+│   ├── pages/               # Page components
+│   ├── services/            # API calls
+│   ├── styles/              # Global styles
+│   ├── App.js               # Main application component
+│   ├── index.js             # Entry point
+├── .gitignore               # Git ignore file
+├── package.json             # Project metadata and dependencies
+└── README.md                # Project documentation
+```
+
+### Usage
+
+- **Creating a new diary**: Navigate to the diary creation page and fill out the form to create a new diary.
+- **Adding places**: Click on a diary to add places, where you can include descriptions and upload images.
+- **Viewing diaries**: The homepage lists all your diaries for easy access.
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute, please fork the repository and submit a pull request with your changes.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.

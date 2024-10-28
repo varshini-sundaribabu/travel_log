@@ -2,7 +2,7 @@ import './main.scss';
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import DiaryCreation from './pages/DiaryCreationPage/DiaryCreation';
+import DiaryCreation from './components/DiaryCreationPage/DiaryCreation';
 import DiaryList from './components/DiaryList/DiaryList';
 import Navbar from './components/Navbar/NavBar';
 import EditDiary from './components/EditDiary/EditDiary';
