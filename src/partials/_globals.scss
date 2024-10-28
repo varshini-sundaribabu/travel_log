@@ -18,3 +18,13 @@ a {
 button {
   cursor: pointer;
 }
+
+.cancel-button {
+  margin-top: 1rem;
+  background-color: $secondary-color !important;
+  color: #fff;
+
+  &:hover {
+      background-color: darken($secondary-color, 10%);
+  }
+}

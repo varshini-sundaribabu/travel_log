@@ -1,41 +1,67 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; 
-import diariesData from '../../data/diaryData.json'; // Import the static JSON file
+import { useParams, useNavigate } from 'react-router-dom';
+import { fetchDiaries, updateDiary } from '../../services/api';
 import './EditDiary.scss';
 
-const EditDiary = ({ onUpdate }) => {
+const EditDiary = () => {
   const { diaryId } = useParams();
   const navigate = useNavigate();
   const [diary, setDiary] = useState(null);
-  const [title, setTitle] = useState('');
+  const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null);
+  const [error, setError] = useState(null);
 
+  // Fetch diary details on mount
   useEffect(() => {
-    // Fetch diary details based on diaryId
-    const fetchedDiary = diariesData.find(d => d.id === parseInt(diaryId));
-    if (fetchedDiary) {
-      setDiary(fetchedDiary);
-      setTitle(fetchedDiary.title);
-      setDescription(fetchedDiary.description);
-      setImage(fetchedDiary.coverImage);
-    } else {
-      navigate('/diaries'); // Redirect if diary not found
-    }
+    const loadDiary = async () => {
+      try {
+        const userId = localStorage.getItem('id'); // Replace with the dynamic user ID if needed
+        const response = await fetchDiaries(userId);
+        const fetchedDiary = response.data.find(d => d.id === parseInt(diaryId));
+
+        if (fetchedDiary) {
+          setDiary(fetchedDiary);
+          setName(fetchedDiary.name);
+          setDescription(fetchedDiary.description);
+          setImage(fetchedDiary.cover_image); // If cover_image is a URL
+        } else {
+          navigate('/diaries'); // Redirect if diary not found
+        }
+      } catch (err) {
+        setError("Failed to load diary details.");
+        console.error("Error fetching diary:", err);
+      }
+    };
+
+    loadDiary();
   }, [diaryId, navigate]);
 
+  // Handle image selection
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setImage(URL.createObjectURL(file));
+      setImage(file);
     }
   };
 
-  const handleSubmit = (e) => {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Update the diary details
-    // onUpdate({ ...diary, title, description, coverImage: image });
-    navigate('/diaries'); // Redirect after updating
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('description', description);
+    if (image) formData.append('cover_image', image);
+
+    try {
+      const userId = localStorage.getItem('id');
+      const response = await updateDiary(userId, diaryId, formData);
+      console.log(response);
+      navigate('/diaries'); // Redirect after updating
+    } catch (err) {
+      setError("Failed to update the diary. Please try again later.");
+      console.error("Error updating diary:", err);
+    }
   };
 
   if (!diary) return <div>Loading...</div>;
@@ -43,37 +69,49 @@ const EditDiary = ({ onUpdate }) => {
   return (
     <div className="edit-diary">
       <h2>Edit Diary</h2>
-      <form onSubmit={handleSubmit}>
+      {error && <p className="error">{error}</p>}
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div>
           <label htmlFor="title">Title:</label>
-          <input 
-            type="text" 
-            id="title" 
-            value={title} 
-            onChange={(e) => setTitle(e.target.value)} 
-            required 
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setTitle(e.target.value)}
+            required
           />
         </div>
         <div>
           <label htmlFor="description">Description:</label>
-          <textarea 
-            id="description" 
-            value={description} 
-            onChange={(e) => setDescription(e.target.value)} 
-            required 
+          <textarea
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
           />
         </div>
         <div>
           <label htmlFor="image">Cover Image:</label>
-          <input 
-            type="file" 
-            id="image" 
-            accept="image/*" 
-            onChange={handleImageChange} 
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={handleImageChange}
           />
-          {image && <img src={image} alt="Preview" className="image-preview" />}
+          {image && typeof image === 'string' ? (
+            <img src={import.meta.env.VITE_SERVER_BASE_URL + 'uploads/' + image} alt="Preview" className="image-preview" />
+          ) : (
+            image && <img src={URL.createObjectURL(image)} alt="Preview" className="image-preview" />
+          )}
         </div>
         <button type="submit">Update Diary</button>
+        <button
+          type="button"
+          className="cancel-button"
+          onClick={() => navigate(`/diaries/${diaryId}/places`)}
+        >
+          Cancel
+        </button>
       </form>
     </div>
   );

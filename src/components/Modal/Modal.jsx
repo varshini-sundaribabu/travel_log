@@ -2,11 +2,11 @@ import React from 'react';
 import Button from '../Button/Button';
 import './Modal.scss';
 
-const Modal = ({ title, fields, handleSubmit, closeModal }) => {
+const Modal = ({ title, fields, handleSubmit, closeModal, error }) => {
   return (
     <div className="modal-overlay">
       <div className="modal">
-        
+
         <h2>{title}</h2>
         <form onSubmit={handleSubmit}>
           {fields.map((field, index) => (
@@ -24,8 +24,9 @@ const Modal = ({ title, fields, handleSubmit, closeModal }) => {
               )}
             </div>
           ))}
-          <Button text="Submit" type="submit"/>
-          <Button text="Close" className="close-button" onClickHandler={closeModal}/>
+          {error && <p>{error}</p>}
+          <Button text="Submit" type="submit" />
+          <Button text="Close" className="close-button" onClickHandler={closeModal} />
         </form>
       </div>
     </div>

@@ -1,18 +1,42 @@
 import React, { useState } from 'react';
 import Modal from './Modal/Modal';
+import { signUpUser } from '../services/api';
 
 const SignUpModal = ({ closeModal }) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [dob, setDob] = useState('');
+  const [first_name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
+  const [date_of_birth, setDob] = useState('');
+  const [email, setEmail] = useState('');
   const [gender, setGender] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState(''); // State to hold error message
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Sign Up with", { firstName, lastName, dob, gender, password, confirmPassword });
-    closeModal();
+
+    // Simple client-side password match validation
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    try {
+      const response = await signUpUser({
+        first_name,
+        last_name,
+        date_of_birth,
+        gender,
+        email,
+        password,
+      }); // Call the signUp API function
+      console.log("Sign Up success:", response.data);
+
+      closeModal(); // Close the modal on successful sign-up
+    } catch (error) {
+      console.error("Sign Up error:", error);
+      setError("Failed to sign up. Please try again."); // Set error message
+    }
   };
 
   const fields = [
@@ -20,7 +44,7 @@ const SignUpModal = ({ closeModal }) => {
       label: 'First Name',
       type: 'text',
       props: {
-        value: firstName,
+        value: first_name,
         onChange: (e) => setFirstName(e.target.value),
       },
     },
@@ -28,15 +52,23 @@ const SignUpModal = ({ closeModal }) => {
       label: 'Last Name',
       type: 'text',
       props: {
-        value: lastName,
+        value: last_name,
         onChange: (e) => setLastName(e.target.value),
+      },
+    },
+    {
+      label: 'Email',
+      type: 'email',
+      props: {
+        value: email,
+        onChange: (e) => setEmail(e.target.value),
       },
     },
     {
       label: 'Date of Birth',
       type: 'date',
       props: {
-        value: dob,
+        value: date_of_birth,
         onChange: (e) => setDob(e.target.value),
       },
     },
@@ -72,7 +104,15 @@ const SignUpModal = ({ closeModal }) => {
     },
   ];
 
-  return <Modal title="Sign Up" fields={fields} handleSubmit={handleSubmit} closeModal={closeModal} />;
+  return (
+    <Modal
+      title="Sign Up"
+      fields={fields}
+      error={error}
+      handleSubmit={handleSubmit}
+      closeModal={closeModal}
+    />
+  );
 };
 
 export default SignUpModal;

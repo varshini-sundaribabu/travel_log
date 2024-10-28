@@ -9,7 +9,7 @@ const details = [
 const DetailsSection = () => {
   return (
     <section className="details-section" id="features">
-      <h2>Why Choose Travelogue?</h2>
+      <h2>Why Choose Travel Log?</h2>
       <div className="details-grid">
         {details.map((item, index) => (
           <div key={index} className="detail-card">

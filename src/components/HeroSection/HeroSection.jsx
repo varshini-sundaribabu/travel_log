@@ -5,7 +5,7 @@ import './HeroSection.scss';
 const HeroSection = ({ openSignIn, openSignUp }) => {
   return (
     <section className="hero-section">
-      <h1>Welcome to Travelogue</h1>
+      <h1>Welcome to Travel Log</h1>
       <p>Create your personal travel journal and explore new places!</p>
       <div className="hero-buttons">
         <Button text="Get Started" onClickHandler={openSignUp} />
