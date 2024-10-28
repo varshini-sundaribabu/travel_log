@@ -47,7 +47,7 @@ List the pages of your app with brief descriptions. You can show this visually, 
 
 ### Mockups
 
-![A mockup of travelogue web app](mockup.png)
+![A mockup of Travel Log web app](mockup.png)
 ### Data
 
 The app will primarily consist of Travel Entries, each containing attributes such as ID, Title, Location, Date, Description, and an array of Photos. Each Entry can be linked to multiple Tags (e.g., location, themes).
@@ -107,9 +107,9 @@ Test for user data storage.
 - Search and Filter features to find trips by location, date, or tags.
 
 
-# Travelogue
+# Travel Log
 
-Travelogue is a web application that allows users to create and manage travel journals. Users can document their travels by creating diaries and adding places with descriptions and images.
+Travel Log is a web application that allows users to create and manage travel journals. Users can document their travels by creating diaries and adding places with descriptions and images.
 
 ## Table of Contents
 
@@ -142,7 +142,7 @@ Travelogue is a web application that allows users to create and manage travel jo
 
 ## Getting Started
 
-To set up the Travelogue project on your local machine, follow these steps:
+To set up the Travel Log project on your local machine, follow these steps:
 
 ### Prerequisites
 
@@ -156,8 +156,15 @@ Make sure you have the following installed:
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/yourusername/travelogue.git
-   cd travelogue
+   git clone https://github.com/yourusername/travel_log.git
+   cd travel_log
+   ```
+
+   In another terminal,
+
+   ```bash
+   git clone https://github.com/varshini-sundaribabu/travel_log_backend.git
+   cd travel_log_backend
    ```
 
 2. **Install dependencies**:
@@ -180,12 +187,13 @@ Make sure you have the following installed:
 
 2. **Open your browser**:
 
-   Navigate to `http://localhost:3000` to see the application in action.
+   Navigate to `http://localhost:5173` to see the frontend application in action.
+   Navigate to `http://localhost:3000` to run the express application in action.
 
 ### Project Structure
 
 ```
-travelogue/
+Travel Log/
 ├── public/                  # Public assets
 ├── src/                     # Source code
 │   ├── components/          # Reusable components
@@ -198,6 +206,24 @@ travelogue/
 ├── package.json             # Project metadata and dependencies
 └── README.md                # Project documentation
 ```
+
+express-app/
+│
+├── src/                     # Source files
+│   ├── controllers/         # Controllers for handling requests
+│   ├── middleware/          # Middleware for processing requests
+│   ├── models/              # Database models
+│   ├── routes/              # Route definitions
+│   ├── services/            # Business logic and services
+│   ├── utils/               # Utility functions
+│   ├── config/              # Configuration files (e.g., database, environment variables)
+│   └── app.js               # Main application file
+├── .env                     # Environment variables
+├── .gitignore               # Files and folders to ignore by Git
+├── package.json             # Project metadata and dependencies
+├── package-lock.json        # Lock file for dependencies
+└── README.md                # Project documentation
+
 
 ### Usage
 
