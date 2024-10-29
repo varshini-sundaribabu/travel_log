@@ -10,6 +10,7 @@ const EditDiary = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
+  const [imageName, setImageName] = useState(null);
   const [error, setError] = useState(null);
 
   // Fetch diary details on mount
@@ -21,12 +22,14 @@ const EditDiary = () => {
         const fetchedDiary = response.data.find(d => d.id === parseInt(diaryId));
 
         if (fetchedDiary) {
+          console.log(fetchedDiary);
           setDiary(fetchedDiary);
           setName(fetchedDiary.name);
           setDescription(fetchedDiary.description);
-          setImage(fetchedDiary.cover_image); // If cover_image is a URL
+          setImageName(fetchedDiary.cover_image);
+          await handleDownloadAndSetImage(fetchedDiary.cover_image);
         } else {
-          navigate('/diaries'); // Redirect if diary not found
+          navigate('/'); // Redirect if diary not found
         }
       } catch (err) {
         setError("Failed to load diary details.");
@@ -36,6 +39,14 @@ const EditDiary = () => {
 
     loadDiary();
   }, [diaryId, navigate]);
+
+  const handleDownloadAndSetImage = async (image) => {
+    const response = await fetch(import.meta.env.VITE_SERVER_BASE_URL + 'uploads/' + image );
+    const blob = await response.blob();
+    const file = new File([blob], image, { type: image.split('.').pop().toLowerCase() });
+    setImage(file);
+  };
+
 
   // Handle image selection
   const handleImageChange = (event) => {
@@ -77,7 +88,7 @@ const EditDiary = () => {
             type="text"
             id="name"
             value={name}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             required
           />
         </div>
@@ -99,7 +110,7 @@ const EditDiary = () => {
             onChange={handleImageChange}
           />
           {image && typeof image === 'string' ? (
-            <img src={import.meta.env.VITE_SERVER_BASE_URL + 'uploads/' + image} alt="Preview" className="image-preview" />
+            <img src={import.meta.env.VITE_SERVER_BASE_URL + 'uploads/' + imageName} alt="Preview" className="image-preview" />
           ) : (
             image && <img src={URL.createObjectURL(image)} alt="Preview" className="image-preview" />
           )}

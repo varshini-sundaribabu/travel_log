@@ -10,6 +10,7 @@ const EditPlaces = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [image, setImage] = useState(null);
+    const [imageName, setImageName] = useState(null);
     const [error, setError] = useState(null);
 
     // Fetch place details on mount
@@ -23,7 +24,8 @@ const EditPlaces = () => {
                     setPlace(fetchedPlace);
                     setName(fetchedPlace.name);
                     setDescription(fetchedPlace.description);
-                    setImage(fetchedPlace.image);
+                    setImageName(fetchedPlace.image);
+                    await handleDownloadAndSetImage(fetchedPlace.image);
                     console.log(fetchedPlace);
                 } else {
                     navigate(`/diaries/${diaryId}/places`);
@@ -36,6 +38,13 @@ const EditPlaces = () => {
 
         loadPlace();
     }, [placeId, diaryId, navigate]);
+
+    const handleDownloadAndSetImage = async (image) => {
+        const response = await fetch(import.meta.env.VITE_SERVER_BASE_URL + 'uploads/' + image );
+        const blob = await response.blob();
+        const file = new File([blob], image, { type: image.split('.').pop().toLowerCase() });
+        setImage(file);
+      };
 
     // Handle image selection
     const handleImageChange = (event) => {
