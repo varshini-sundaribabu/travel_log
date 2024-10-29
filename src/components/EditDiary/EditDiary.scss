@@ -1,57 +1,64 @@
 @import './src/partials/variables';
 @import './src/partials/mixins';
+
 .edit-diary {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    background-color: $text-color;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  
-    h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-  
-    form {
-      display: flex;
-      flex-direction: column;
-  
-      div {
-        margin-bottom: 1rem;
-  
-        label {
-          display: block;
-          margin-bottom: 0.5rem;
-        }
-  
-        input[type="text"], 
-        textarea {
-          width: 100%;
-          padding: 0.5rem;
-          border: 1px solid $secondary-color;
-          border-radius: 4px;
-        }
-  
-        .image-preview {
-          margin-top: 1rem;
-          width: 100%; // Responsive image preview
-          height: auto; // Maintain aspect ratio
-        }
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: $text-color;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    div {
+      margin-bottom: 1rem;
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
       }
-  
-      button {
-        padding: 0.75rem;
-        background-color: $primary-color;
-        color: #fff;
-        border: none;
+
+      input[type="text"], 
+      textarea {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid $secondary-color;
         border-radius: 4px;
-        cursor: pointer;
-  
-        &:hover {
-          background-color: darken($primary-color, 10%);
-        }
+      }
+
+      .image-preview {
+        margin-top: 1rem;
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    button {
+      width: 100%; // Full width on all devices
+      padding: 0.75rem;
+      background-color: $primary-color;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 1rem; // Adds space between the button and previous elements
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+
+      @include respond-to(desktop) {
+        max-width: 200px; // Set a narrower width on desktop
+        margin: 1rem auto 0; // Center button horizontally on desktop
       }
     }
   }
-  
+}

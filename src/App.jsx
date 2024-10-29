@@ -9,30 +9,17 @@ import EditDiary from './components/EditDiary/EditDiary';
 import PlacesList from './components/PlacesList/PlacesList';
 import PlacesCreate from './components/CreatePlace/PlacesCreate';
 import EditPlaces from './components/EditPlace/EditPlaces';
+import { useState } from 'react';
+import { getToken } from './components/auth';
 
 const App = () => {
-  const token = localStorage.getItem('token');
-
-  // Automatically sign out the user after 1 hour if there's a token
-  useEffect(() => {
-    if (token) {
-      const expirationTime = 60 * 60 * 1000; // 1 hour in milliseconds
-      const signOutTimer = setTimeout(() => {
-        localStorage.removeItem('token');
-        window.location.reload(); // Refresh to redirect to HomePage after logout
-      }, expirationTime);
-
-      // Clear timer on unmount
-      return () => clearTimeout(signOutTimer);
-    }
-  }, [token]);
+  const [token, setAppToken] = useState(getToken());
 
   return (
     <Router>
-      <Navbar />
+      <Navbar token={token} setAppToken={setAppToken}/>
       <Routes>
-        <Route path="/" element={token ? <Navigate to="/diaries" /> : <HomePage />} />
-        <Route path="/diaries" element={<DiaryList />} />
+        <Route path="/" element={token ? <DiaryList /> : <HomePage  setAppToken={setAppToken}/>} />
         <Route path="/diaries/edit/:diaryId" element={<EditDiary />} />
         <Route path="/diaries/:diaryId/places" element={<PlacesList />} />
         <Route path="/diaries/:diaryId/places/create" element={<PlacesCreate />} />

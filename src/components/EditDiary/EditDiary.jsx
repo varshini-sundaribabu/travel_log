@@ -57,7 +57,7 @@ const EditDiary = () => {
       const userId = localStorage.getItem('id');
       const response = await updateDiary(userId, diaryId, formData);
       console.log(response);
-      navigate('/diaries'); // Redirect after updating
+      navigate('/'); // Redirect after updating
     } catch (err) {
       setError("Failed to update the diary. Please try again later.");
       console.error("Error updating diary:", err);

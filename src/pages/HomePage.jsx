@@ -4,7 +4,7 @@ import DetailsSection from '../components/DetailsSection/DetailsSection';
 import SignInModal from '../components/SignInModal';
 import SignUpModal from '../components/SignUpModal';
 
-const HomePage = () => {
+const HomePage = ({ setAppToken }) => {
   const [isSignInOpen, setSignInOpen] = useState(false);
   const [isSignUpOpen, setSignUpOpen] = useState(false);
 
@@ -16,8 +16,8 @@ const HomePage = () => {
       />
       <DetailsSection />
 
-      {isSignInOpen && <SignInModal closeModal={() => setSignInOpen(false)} />}
-      {isSignUpOpen && <SignUpModal closeModal={() => setSignUpOpen(false)} />}
+      {isSignInOpen && <SignInModal setAppToken={setAppToken} closeModal={() => setSignInOpen(false)} />}
+      {isSignUpOpen && <SignUpModal setAppToken={setAppToken} closeModal={() => setSignUpOpen(false)} />}
     </>
   );
 };

@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import Modal from './Modal/Modal';
 import { signUpUser } from '../services/api';
+import { setToken } from './auth';
 
 const SignUpModal = ({ closeModal }) => {
+  const navigate = useNavigate(); // Hook for navigation
+
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
-  const [date_of_birth, setDob] = useState('');
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState('');
   const [password, setPassword] = useState('');
@@ -25,17 +28,21 @@ const SignUpModal = ({ closeModal }) => {
       const response = await signUpUser({
         first_name,
         last_name,
-        date_of_birth,
         gender,
         email,
         password,
-      }); // Call the signUp API function
-      console.log("Sign Up success:", response.data);
+      });
+      setToken(response.data['token']);
+      setAppToken(response.data['token']);
+      localStorage.setItem('id', response.data['userId']);
+      localStorage.setItem('user', response.data['user']);
+      localStorage.setItem('username', response.data['user']['first_name']);
+      navigate('/'); 
 
       closeModal(); // Close the modal on successful sign-up
     } catch (error) {
       console.error("Sign Up error:", error);
-      setError("Failed to sign up. Please try again."); // Set error message
+      setError(error.message); // Set error message
     }
   };
 
@@ -62,14 +69,6 @@ const SignUpModal = ({ closeModal }) => {
       props: {
         value: email,
         onChange: (e) => setEmail(e.target.value),
-      },
-    },
-    {
-      label: 'Date of Birth',
-      type: 'date',
-      props: {
-        value: date_of_birth,
-        onChange: (e) => setDob(e.target.value),
       },
     },
     {

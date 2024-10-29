@@ -23,7 +23,7 @@ const DiaryCreation = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const userId = getUserId();
     if (!userId) {
       setError("User ID is missing. Please log in again.");
@@ -42,7 +42,7 @@ const DiaryCreation = () => {
     try {
       const response = await createDiary(userId, formData); // Sending formData instead of JSON
       console.log(response.data);
-      navigate('/diaries'); // Redirect after creating
+      navigate('/'); // Redirect after creating
     } catch (err) {
       console.error("Error creating diary:", err);
       setError("Failed to create a new diary. Please try again later.");
@@ -82,7 +82,7 @@ const DiaryCreation = () => {
           />
           {image && <img src={URL.createObjectURL(image)} alt="Preview" className="image-preview" />}
         </div>
-        <Button type="submit" text="Create Diary" />
+        <button type="submit">Create Diary</button>
         {error && (<p className="error-message">{error}</p>)}
       </form>
     </div>

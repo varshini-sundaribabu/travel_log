@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { clearToken } from '../auth';
 import './Navbar.scss';
 
-const Navbar = () => {
-  const navigate = useNavigate();
+const Navbar = ({token, setAppToken}) => {
   const [username, setUsername] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
     const user = localStorage.getItem('username');
     if (token && user) {
       setUsername(user.charAt(0).toUpperCase());
     }
-  }, [username]);
+  }, [token]);
 
   const handleSignOut = () => {
-    localStorage.removeItem('token');
+    clearToken();
+    setAppToken(null);
+    setUsername(null);
     localStorage.removeItem('username');
     localStorage.removeItem('user');
     localStorage.removeItem('id');
-
-    navigate("/");
   };
 
   return (

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import Modal from './Modal/Modal';
 import { signInUser } from '../services/api';
+import { setToken } from './auth';
 
-const SignInModal = ({ closeModal }) => {
+const SignInModal = ({ closeModal, setAppToken }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(''); // State to hold error message
@@ -14,16 +15,20 @@ const SignInModal = ({ closeModal }) => {
     e.preventDefault();
     try {
       const response = await signInUser({ email, password }); // Call the signIn API function
-      console.log("Sign In success:", response.data);
-      localStorage.setItem('token', response.data['token']);
-      localStorage.setItem('id', response.data['userId']);
-      localStorage.setItem('user', response.data['user']);
-      localStorage.setItem('username', response.data['user']['first_name']);
-      
+      console.log(response.status);
+      if (response.status === 200) {
+        console.log("Sign In success:", response.data);
+        setToken(response.data['token']);
+        setAppToken(response.data['token']);
+        localStorage.setItem('id', response.data['userId']);
+        localStorage.setItem('user', response.data['user']);
+        localStorage.setItem('username', response.data['user']['first_name']);
+        navigate('/');
+        closeModal();
 
-      // Redirect to Diary List page upon successful sign-in
-      navigate('/diaries'); 
-      closeModal();
+      } else {
+        setError(response.data);
+      }
     } catch (error) {
       console.error("Sign In error:", error);
       setError("Failed to sign in. Please check your credentials and try again."); // Set error message
