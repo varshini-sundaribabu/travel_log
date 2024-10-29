@@ -64,6 +64,12 @@ $padding: 2rem;
       @media (max-width: $breakpoint-mobile) {
         font-size: 0.9rem;
         padding: 0.4rem;
+        
+      }
+
+      @media (min-width: $breakpoint-tablet) {
+        align-self: flex-end;
+        height: 2.5rem;
       }
     }
   }

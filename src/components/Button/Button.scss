@@ -1,4 +1,6 @@
 @import './src/partials/variables';
+@import './src/partials/mixins';
+
 
 .custom-button {
   background-color: $primary-color;
@@ -8,6 +10,10 @@
   border-radius: 5px;
   font-size: $font-size-medium;
   transition: background-color 0.3s ease;
+
+  @include respond-to(tablet) {
+    align-self: flex-end;
+  }
 
   &:hover {
     background-color: darken($primary-color, 10%);
