@@ -4,7 +4,7 @@ import Modal from './Modal/Modal';
 import { signUpUser } from '../services/api';
 import { setToken } from './auth';
 
-const SignUpModal = ({ closeModal }) => {
+const SignUpModal = ({ closeModal, setAppToken }) => {
   const navigate = useNavigate(); // Hook for navigation
 
   const [first_name, setFirstName] = useState('');

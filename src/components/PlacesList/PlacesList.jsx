@@ -41,7 +41,7 @@ const PlacesList = () => {
     };
 
     const handleBack = () => {
-        navigate('/diaries');
+        navigate('/');
     }
 
     return (
